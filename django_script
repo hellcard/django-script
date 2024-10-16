@@ -1,0 +1,55 @@
+#!/bin/bash
+
+echo -e "Hello, $(whoami), this script for creating a django project is created by w7. Before use, make sure that you have venv installed correctly to create a virtual environment. \n\nTo install venv, enter the command: \n$ sudo apt install python3.12-venv \n\nEnjoy!"
+echo -e "\n\nstart? (y/n): "
+read choice
+
+if [ $choice = "y" ]
+
+then
+
+clear
+echo -e -n "\nWhat will you call your virtual environment? - "
+read venv
+
+python3 -m venv .$venv
+
+echo -e "\nactivation of virtual environment..."
+source .$venv/bin/activate
+
+echo -e "\ninstalling poetry in /.$venv\n"
+pip install poetry
+
+echo -e "\n\nrunning poetry init, please set up your project..."
+poetry init
+
+echo -e "\nadding django to dependency package...\n"
+poetry add django
+
+echo -e "\ninstalling django into a project...\n"
+poetry install
+
+echo -e "\nWarning: You can see the result of the current settings in the terminal. \nIf something doesn't go according to plan, please correct this script yourself as needed.\n\nSetting up a django project..."
+django-admin
+
+echo -e "\nyou can see the available subcommands above\n"
+echo -e -n "\nplease enter the name of your django project: "
+read name
+
+echo -e "\ncreating a django project...\n"
+django-admin startproject $name
+
+echo -e -n "\nRun the resulting django project? (y/n): "
+read choice
+
+if [ $choice = "y" ]
+then
+cd $name ; python manage.py runserver ; clear
+
+else
+clear
+fi
+
+else
+clear
+fi
