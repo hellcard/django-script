@@ -44,7 +44,7 @@ read choice
 
 if [ $choice = "y" ]
 then
-cd $name ; python manage.py runserver ; clear
+cd $name ; python manage.py migrate ; python manage.py runserver ; clear
 
 else
 clear
