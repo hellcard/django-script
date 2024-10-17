@@ -1,0 +1,96 @@
+#!/bin/bash
+
+echo -e "Hello, $(whoami), this script for creating a django project is created by w7. Before use, make sure that you have venv installed correctly to create a virtual environment. \n\nTo install venv, enter the command: \n$ sudo apt install python3.12-venv \n\nEnjoy!"
+echo -e -n "\n\nstart? (y/n): "
+read choice
+
+if [ $choice = "y" ]
+then
+
+clear
+
+echo -e "\nWhat name will your virtual environment have? \n\nATTETION: For the script to work correctly, you must enter the name of your virtual environment, otherwise the project structure will be incorrect."
+echo -n "name of your virtual environment: "
+read venv
+echo -e "\nYour venv: .$venv"
+
+echo -e "\n | creation of a virtual environment .$venv ... |" 
+python3 -m venv .$venv
+
+echo -e "\n | activation of virtual environment .$venv ... |"
+source .$venv/bin/activate
+
+echo -e "\n | installation poetry ... |\n"
+pip install poetry
+
+echo -e "\n | run poetry init ... |"
+poetry init
+
+echo -e "\n | installing django framework ... |"
+poetry add django
+
+echo -e -n "\n do you want to see installed files? (y/n): "
+read choicepip
+if [ $choicepip = "y" ]
+then
+echo -e "\n\n | your pip list: | "
+pip list
+fi
+
+django-admin
+
+echo -e "\n !!! | You may see warnings for installing other packages in the terminal. If something doesn't go according to plan, you can add to this script yourself as you need it. | !!!"
+
+echo -e "\n\nenter the name of your django project. \n\nATTETION: for the script to work correctly, you need to enter the name of your Django project; if you ignore this warning, the creation of the project will not be correct."
+echo -e -n "\nenter the name of your django project: "
+read projectname
+
+echo -e "\n | creating a django project ... |"
+poetry run django-admin startproject $projectname .
+
+echo -e "\n | creating a project database migration ... |"
+poetry run python manage.py makemigrations
+
+echo -e "\n | apply migrations ... |"
+poetry run python manage.py migrate
+
+echo -e -n "\n create a django application? (y/n): "
+read appchoice
+
+if [ $appchoice = "y" ]
+then
+echo -e -n "\n enter the name of the new application: "
+read nameapp
+poetry run python manage.py startapp $nameapp
+echo -e "\n\n !!!! || WARNING: now you need to register the applications in settings.py by adding its name to INSTALLED_APPS || !!!!"
+echo -e "\nrun a django project? \n\n(keep in mind that the application will not be initialized since it is not in settings.py, paste the name of the application, then run it after the script runs)\n"
+echo -e -n "\nyour choice (y/n): "
+read runchoice
+
+if [ $runchoice = "y" ]
+then
+poetry run python manage.py runserver
+clear
+
+else
+clear
+fi
+
+else
+echo -e -n "\nrun a django project? (y/n) - "
+read runchoice
+
+if [ $runchoice = "y" ]
+then
+poetry run python manage.py runserver
+clear
+
+else
+clear
+fi
+
+fi
+
+else
+clear
+fi 
