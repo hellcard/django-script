@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "Hello, $(whoami), this script for creating a django project is created by w7. Before use, make sure that you have venv installed correctly to create a virtual environment. \n\nTo install venv, enter the command: \n$ sudo apt install python3.12-venv \n\nEnjoy!"
+echo -e "Hello, $(whoami), this script for creating a django project is created by hellcard. Before use, make sure that you have venv installed correctly to create a virtual environment. \n\nTo install venv, enter the command: \n$ sudo apt install python3.12-venv \n\nEnjoy!"
 echo -e -n "\n\nstart? (y/n): "
 read choice
 
